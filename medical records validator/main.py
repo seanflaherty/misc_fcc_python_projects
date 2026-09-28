@@ -1,0 +1,95 @@
+"""
+This module validates medical records and identifies invalid records.
+"""
+import re
+
+medical_records = [
+    {
+        'patient_id': 'P1001',
+        'age': 34,
+        'gender': 'Female',
+        'diagnosis': 'Hypertension',
+        'medications': ['Lisinopril'],
+        'last_visit_id': 'V2301',
+    },
+    {
+        'patient_id': 'p1002',
+        #'age': 47,
+        'gender': 'male',
+        'diagnosis': 'Type 2 Diabetes',
+        'medications': ['Metformin', 'Insulin'],
+        'last_visit_id': 'v2302',
+    },
+    {
+        'patient_id': 'P1003',
+        'age': 29,
+        'gender': 'female',
+        'diagnosis': 'Asthma',
+        'medications': ['Albuterol'],
+        'last_visit_id': 'v2303',
+    },
+    {
+        'patient_id': 'p1004',
+        'age': 56,
+        'gender': 'Male',
+        'diagnosis': 'Chronic Back Pain',
+        'medications': ['Ibuprofen', 'Physical Therapy'],
+        'last_visit_id': 'V2304',
+    }
+]
+
+def find_invalid_records(
+    patient_id: str, age: int, gender: str, diagnosis: str,
+    medications: list, last_visit_id: str
+):
+    """Finds invalid records based on constraints."""
+    constraints = {
+        'patient_id': isinstance(patient_id, str)
+        and re.fullmatch('p\\d+', patient_id, re.IGNORECASE),
+        'age': isinstance(age, int) and age >= 18,
+        'gender': isinstance(gender, str) and gender.lower() in ('male', 'female'),
+        'diagnosis': isinstance(diagnosis, str) or diagnosis is None,
+        'medications': isinstance(medications, list)
+        and all([isinstance(i, str) for i in medications]),
+        'last_visit_id': isinstance(last_visit_id, str)
+        and re.fullmatch('v\\d+', last_visit_id, re.IGNORECASE)
+    }
+    return [key for key, value in constraints.items() if not value]
+
+def validate(data):
+    """Validates records."""
+    is_sequence = isinstance(data, (list, tuple))
+
+    if not is_sequence:
+        print('Invalid format: expected a list or tuple.')
+        return False
+    is_invalid = False
+    key_set = set(
+        ['patient_id', 'age', 'gender', 'diagnosis', 'medications', 'last_visit_id']
+    )
+
+    for index, dictionary in enumerate(data):
+        if not isinstance(dictionary, dict):
+            print(f'Invalid format: expected a dictionary at position {index}.')
+            is_invalid = True
+            continue
+
+        if set(dictionary.keys()) != key_set:
+            print(
+                f'Invalid format: {dictionary} at position {index} has missing and/or invalid keys.'
+            )
+            is_invalid = True
+            continue
+        invalid_records = find_invalid_records(**dictionary)
+        for key in invalid_records:
+            value = dictionary[key]
+            position = list(dictionary.keys()).index(key)
+            print(f"Unexpected format '{key}: {value}' at position {position}.")
+            is_invalid = True
+
+    if is_invalid:
+        return False
+    print('Valid format.')
+    return True
+
+validate(medical_records)
