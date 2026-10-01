@@ -39,7 +39,7 @@ medical_records = [
 ]
 
 def find_invalid_records(
-    patient_id: str, age: int, gender: str, diagnosis: str,
+    patient_id: str, age: int, gender: str, diagnosis: str | None,
     medications: list, last_visit_id: str
 ):
     """Finds invalid records based on constraints."""
