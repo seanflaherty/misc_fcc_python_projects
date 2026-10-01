@@ -1,7 +1,7 @@
 """
 Tests for the medical records validator module.
 """
-from .med_rec_validator import find_invalid_records
+from med_rec_validator import find_invalid_records
 #SCF import find_invalid_records
 
 def test_find_invalid_records_valid_input():
