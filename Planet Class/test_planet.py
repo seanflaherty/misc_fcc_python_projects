@@ -25,7 +25,7 @@ class TestPlanetValidation:
             (1.5, True, 42),  # All non-strings
         ],
     )
-    def test_invalid_types_raise_type_error(self, name, planet_type, star):
+    def test_invalid_types_raise_type_error(self, name: str, planet_type: str, star: str):
         """Invalid types test."""
         with pytest.raises(TypeError, match="must be strings"):
             Planet(name, planet_type, star)
@@ -39,7 +39,7 @@ class TestPlanetValidation:
             ("", "", ""),  # All empty
         ],
     )
-    def test_empty_strings_raise_value_error(self, name, planet_type, star):
+    def test_empty_strings_raise_value_error(self, name: str, planet_type: str, star: str):
         """Empty strings test."""
         with pytest.raises(ValueError, match="must be non-empty strings"):
             Planet(name, planet_type, star)
