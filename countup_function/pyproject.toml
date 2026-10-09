@@ -1,0 +1,22 @@
+[project]
+name = "Count_up function"
+version = "0.1.0"
+description = "This module counts up to the supplied integer."
+authors = [
+    {name = "Sean Flaherty",email = "sean.flaherty@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+]
+
+[tool.pylint.main]
+init-hook='import sys; sys.path.extend([".", "src"])'
+source-roots = ["src"]
+
+[tool.pytest.ini_options]
+pythonpaths = ["."]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
