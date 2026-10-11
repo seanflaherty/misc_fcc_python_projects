@@ -2,8 +2,8 @@
 
 def calculate_ticket_price(
         age: int = 21,
-        seat_type: str = "Gold",
-        show_time: str = "Evening",
+        seat_type: str = "Standard",
+        show_time: str = "Matinee",
         is_member: bool = False,
         is_weekend: bool = False,
         base_price: float = 15.0,
@@ -29,3 +29,5 @@ def calculate_ticket_price(
         service_charges = 1
 
     return base_price + extra_charges + service_charges - discount
+
+print(calculate_ticket_price(age=22, is_member=True))
