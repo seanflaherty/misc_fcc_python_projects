@@ -1,12 +1,12 @@
 """Example testable ticket buying script."""
 
 def calculate_ticket_price(
-        age: int,
-        seat_type: str,
-        show_time: str,
-        is_member: bool,
-        is_weekend: bool,
-        base_price: float,
+        age: int = 21,
+        seat_type: str = "Gold",
+        show_time: str = "Evening",
+        is_member: bool = False,
+        is_weekend: bool = False,
+        base_price: float = 15.0,
 ) -> float:
     """Calculates ticket price or raises ValueError if ineligible."""
     # 1. Eligibility Check
